@@ -73,7 +73,7 @@ void ShellSort(vector<int> &arr)
 
 void SimpleSelectionSort(vector<int> &arr)
 {
-    for (int i = 0; i < arr.size(); ++i)
+    for (int i = 0; i < arr.size() - 1; ++i)
     {
         int min_ind = i;
         for (int j = i + 1; j < arr.size(); ++j)
@@ -87,14 +87,28 @@ void SimpleSelectionSort(vector<int> &arr)
     }
 }
 
+void BubbleSort(vector<int> &arr)
+{
+    for (int i = 0; i < arr.size() - 1; ++i)
+    {
+        for (int j = 1; j < (arr.size() - i); ++j)
+        {
+            if (arr[j - 1] > arr[j])
+            {
+                swap(arr[j - 1], arr[j]);
+            }
+        }
+    }
+}
+
 int main()
 {
     vector<int> arr;
-    for (int i = 10; i >= 0; --i)
+    for (int i = 16; i >= 0; --i)
     {
         arr.push_back(i);
     }
-    SimpleSelectionSort(arr);
+    BubbleSort(arr);
     for (size_t i = 0; i < arr.size(); ++i)
     {
         cout << arr.at(i) << endl;
