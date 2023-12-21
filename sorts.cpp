@@ -101,14 +101,35 @@ void BubbleSort(vector<int> &arr)
     }
 }
 
+void ShakerSort(vector<int> &arr)
+{
+    int left = 0;
+    int right = arr.size() - 1;
+    while (left < right)
+    {
+        for (int i = left + 1; i <= right; ++i)
+        {
+            if (arr[i] < arr[i - 1])
+                swap(arr[i], arr[i - 1]);
+        }
+        for (int i = right - 1; i > 0; --i)
+        {
+            if (arr[i] < arr[i - 1])
+                swap(arr[i], arr[i - 1]);
+        }
+        ++left;
+        --right;
+    }
+}
+
 int main()
 {
     vector<int> arr;
-    for (int i = 16; i >= 0; --i)
+    for (int i = 10; i >= 0; --i)
     {
         arr.push_back(i);
     }
-    BubbleSort(arr);
+    ShakerSort(arr);
     for (size_t i = 0; i < arr.size(); ++i)
     {
         cout << arr.at(i) << endl;
