@@ -8,20 +8,19 @@ void SimpleInclusionSort(vector<int> &arr)
     for (int i = 1; i < arr.size(); ++i)
     {
         int j = i - 1;
-        int temp = arr[i];
-        while (temp < arr[j] && j >= 0)
+        int temp = arr.at(i);
+        while (j >= 0 && temp < arr.at(j))
         {
-            swap(arr[j], arr[j + 1]);
+            swap(arr.at(j), arr.at(j + 1));
             j--;
         }
-        arr[j] = temp;
     }
 }
 
 void InsertElement(vector<int> &arr, vector<int>::iterator start, vector<int>::iterator end, int elem)
 // Вставляет элемент в отсортированный массив с помощью бинарного поиска
 {
-    while (start - end > 0)
+    while (end - start > 0)
     {
         size_t i = (end - start) / 2;
         if (*(start + i) == elem)
@@ -53,6 +52,25 @@ void BinaryInsertSort(vector<int> &arr)
     }
 }
 
+void ShellSort(vector<int> &arr)
+{
+    int k = (arr.size() - 1) / 2;
+    while (k > 0)
+    {
+        for (int i = k; i < arr.size(); ++i)
+        {
+            int j = i - k;
+            int temp = arr.at(i);
+            while (j < arr.size() && j >= 0 && temp < arr.at(j))
+            {
+                swap(arr.at(j), arr.at(j + k));
+                j--;
+            }
+        }
+        k = k / 2;
+    }
+}
+
 int main()
 {
     vector<int> arr;
@@ -60,7 +78,7 @@ int main()
     {
         arr.push_back(i);
     }
-    BinaryInsertSort(arr);
+    SimpleInclusionSort(arr);
     for (size_t i = 0; i < arr.size(); ++i)
     {
         cout << arr.at(i) << endl;
