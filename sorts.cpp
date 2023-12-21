@@ -71,6 +71,22 @@ void ShellSort(vector<int> &arr)
     }
 }
 
+void SimpleSelectionSort(vector<int> &arr)
+{
+    for (int i = 0; i < arr.size(); ++i)
+    {
+        int min_ind = i;
+        for (int j = i + 1; j < arr.size(); ++j)
+        {
+            if (arr[j] < arr[min_ind])
+            {
+                min_ind = j;
+            }
+        }
+        swap(arr[i], arr[min_ind]);
+    }
+}
+
 int main()
 {
     vector<int> arr;
@@ -78,7 +94,7 @@ int main()
     {
         arr.push_back(i);
     }
-    SimpleInclusionSort(arr);
+    SimpleSelectionSort(arr);
     for (size_t i = 0; i < arr.size(); ++i)
     {
         cout << arr.at(i) << endl;
