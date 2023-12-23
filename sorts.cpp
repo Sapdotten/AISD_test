@@ -2,16 +2,15 @@
 #include <vector>
 using namespace std;
 
-void SimpleInclusionSort(vector<int> &arr)
+void SimpleInsertSort(int *arr, int size)
 // Сортировка простым включением
 {
-    for (int i = 1; i < arr.size(); ++i)
+    for (int i = 1; i < size; ++i)
     {
         int j = i - 1;
-        int temp = arr.at(i);
-        while (j >= 0 && temp < arr.at(j))
+        while (j >= 0 && arr[j + 1] < arr[j])
         {
-            swap(arr.at(j), arr.at(j + 1));
+            swap(arr[j], arr[j + 1]);
             j--;
         }
     }
@@ -125,7 +124,7 @@ void ShakerSort(vector<int> &arr)
 int main()
 {
     int sarr[] = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
-    SimpleSelectionSort(sarr, 10);
+    SimpleInsertSort(sarr, 10);
     for (size_t i = 0; i < 10; ++i)
     {
         cout << sarr[i] << endl;
