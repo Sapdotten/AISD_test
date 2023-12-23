@@ -71,12 +71,12 @@ void ShellSort(vector<int> &arr)
     }
 }
 
-void SimpleSelectionSort(vector<int> &arr)
+void SimpleSelectionSort(int *arr, int size)
 {
-    for (int i = 0; i < arr.size() - 1; ++i)
+    for (int i = 0; i < size - 1; ++i)
     {
         int min_ind = i;
-        for (int j = i + 1; j < arr.size(); ++j)
+        for (int j = i + 1; j < size; ++j)
         {
             if (arr[j] < arr[min_ind])
             {
@@ -124,15 +124,11 @@ void ShakerSort(vector<int> &arr)
 
 int main()
 {
-    vector<int> arr;
-    for (int i = 10; i >= 0; --i)
+    int sarr[] = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
+    SimpleSelectionSort(sarr, 10);
+    for (size_t i = 0; i < 10; ++i)
     {
-        arr.push_back(i);
-    }
-    ShakerSort(arr);
-    for (size_t i = 0; i < arr.size(); ++i)
-    {
-        cout << arr.at(i) << endl;
+        cout << sarr[i] << endl;
     }
     return 0;
 }
