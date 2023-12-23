@@ -52,18 +52,17 @@ void BinaryInsertSort(int *arr, int size)
     }
 }
 
-void ShellSort(vector<int> &arr)
+void ShellSort(int *arr, int size)
 {
-    int k = (arr.size() - 1) / 2;
+    int k = (size - 1) / 2;
     while (k > 0)
     {
-        for (int i = k; i < arr.size(); ++i)
+        for (int i = k; i < size; ++i)
         {
             int j = i - k;
-            int temp = arr.at(i);
-            while (j < arr.size() && j >= 0 && temp < arr.at(j))
+            while (j < size && j >= 0 && arr[j + k] < arr[j])
             {
-                swap(arr.at(j), arr.at(j + k));
+                swap(arr[j], arr[j + k]);
                 j--;
             }
         }
@@ -87,11 +86,11 @@ void SimpleSelectionSort(int *arr, int size)
     }
 }
 
-void BubbleSort(vector<int> &arr)
+void BubbleSort(int *arr, int size)
 {
-    for (int i = 0; i < arr.size() - 1; ++i)
+    for (int i = 0; i < size - 1; ++i)
     {
-        for (int j = 1; j < (arr.size() - i); ++j)
+        for (int j = 1; j < (size - i); ++j)
         {
             if (arr[j - 1] > arr[j])
             {
@@ -125,7 +124,7 @@ void ShakerSort(vector<int> &arr)
 int main()
 {
     int sarr[] = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
-    BinaryInsertSort(sarr, 10);
+    ShellSort(sarr, 10);
     for (size_t i = 0; i < 10; ++i)
     {
         cout << sarr[i] << endl;
