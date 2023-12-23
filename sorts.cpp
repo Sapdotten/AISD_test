@@ -16,38 +16,39 @@ void SimpleInsertSort(int *arr, int size)
     }
 }
 
-void InsertElement(vector<int> &arr, vector<int>::iterator start, vector<int>::iterator end, int elem)
-// Вставляет элемент в отсортированный массив с помощью бинарного поиска
+void InsertElement(int *arr, int beg, int end, int elem_ind)
 {
-    while (end - start > 0)
+    int i;
+    while (beg <= end)
     {
-        size_t i = (end - start) / 2;
-        if (*(start + i) == elem)
+        i = (end + beg) / 2;
+        if (arr[i] == arr[elem_ind])
         {
-            arr.insert(start + i, elem);
+            i += 1;
             break;
         }
-        else if (*(start + i) > elem)
+        else if (arr[i] > arr[elem_ind])
         {
-            end = start + i;
+            end = i - 1;
         }
         else
         {
-            start = start + i + 1;
+            beg = i + 1;
         }
     }
-    arr.insert(start, elem);
-}
-void BinaryInsertSort(vector<int> &arr)
-// Бинарная сортировка - вариант сортировки включениями
-// Отличается тем, что в ней вставка элемента в отсортированную часть
-// производится с помощью бинарного поиска
-{
-    for (size_t i = 1; i < arr.size(); ++i)
+    while (i != elem_ind)
     {
-        int elem = arr.at(i);
-        arr.erase(arr.begin() + i);
-        InsertElement(arr, arr.begin(), arr.begin() + i, elem);
+        swap(arr[elem_ind], arr[elem_ind - 1]);
+        --elem_ind;
+    }
+}
+
+void BinaryInsertSort(int *arr, int size)
+{
+    for (int i = 1; i < size; ++i)
+    {
+        int elem = arr[i];
+        InsertElement(arr, 0, i - 1, i);
     }
 }
 
@@ -124,7 +125,7 @@ void ShakerSort(vector<int> &arr)
 int main()
 {
     int sarr[] = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
-    SimpleInsertSort(sarr, 10);
+    BinaryInsertSort(sarr, 10);
     for (size_t i = 0; i < 10; ++i)
     {
         cout << sarr[i] << endl;
