@@ -88,6 +88,7 @@ void SimpleSelectionSort(int *arr, int size)
 
 void BubbleSort(int *arr, int size)
 {
+    bool swapped = false;
     for (int i = 0; i < size - 1; ++i)
     {
         for (int j = 1; j < (size - i); ++j)
@@ -95,26 +96,39 @@ void BubbleSort(int *arr, int size)
             if (arr[j - 1] > arr[j])
             {
                 swap(arr[j - 1], arr[j]);
+                swapped = true;
             }
         }
+        if (!swapped)
+            break;
     }
 }
 
-void ShakerSort(vector<int> &arr)
+void ShakerSort(int *arr, int size)
 {
     int left = 0;
-    int right = arr.size() - 1;
-    while (left < right)
+    int right = size - 1;
+    bool swapped = true;
+    while (left < right && swapped)
     {
+        swapped = false;
         for (int i = left + 1; i <= right; ++i)
         {
             if (arr[i] < arr[i - 1])
-                swap(arr[i], arr[i - 1]);
+            {
+                {
+                    swap(arr[i], arr[i - 1]);
+                    swapped = true;
+                }
+            }
         }
         for (int i = right - 1; i > 0; --i)
         {
             if (arr[i] < arr[i - 1])
+            {
                 swap(arr[i], arr[i - 1]);
+                swapped = true;
+            }
         }
         ++left;
         --right;
@@ -124,7 +138,7 @@ void ShakerSort(vector<int> &arr)
 int main()
 {
     int sarr[] = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
-    ShellSort(sarr, 10);
+    ShakerSort(sarr, 10);
     for (size_t i = 0; i < 10; ++i)
     {
         cout << sarr[i] << endl;
