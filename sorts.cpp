@@ -135,13 +135,104 @@ void ShakerSort(int *arr, int size)
     }
 }
 
+int InterpolationSearch(int *arr, int size, int elem)
+{
+    int low = 0, hight = size - 1;
+    while (low <= hight && elem >= arr[low] && arr[hight] >= elem)
+    {
+        int pos = low + (hight - low) * double((elem - arr[low]) / (arr[hight] - arr[low]));
+        if (arr[pos] == elem)
+            return pos;
+        else if (arr[pos] > elem)
+        {
+            hight = pos - 1;
+        }
+        else
+            low = pos + 1;
+    }
+    return -1;
+}
+
+void QuickSort(int *arr, int size)
+{
+    if (size <= 1)
+        return;
+    int pivot = size / 2;
+    int left = 0, right = size - 1;
+    while (left <= right)
+    {
+        while (arr[pivot] > arr[left])
+            ++left;
+        while (arr[pivot] < arr[right])
+            --right;
+        if (left <= right)
+        {
+            int temp = arr[left];
+            arr[left] = arr[right];
+            arr[right] = temp;
+            left++;
+            right--;
+        }
+    }
+    QuickSort(arr, right + 1);
+    QuickSort(&arr[left], size - left);
+}
+
+void Merge(int *arr, int low, int mid, int hight)
+{
+    int i = low, j = mid, k = hight;
+    // if (i == j - 1 && j == k)
+    //     return;
+    if (mid - low - 1 > 0)
+    {
+        int temp_mid = (mid - 1 + low) / 2;
+        if (temp_mid <= low)
+            temp_mid = low + 1;
+        Merge(arr, low, temp_mid, mid - 1);
+    }
+    if (hight - mid >= 1)
+    {
+        int temp_mid = (hight + mid) / 2;
+        if (temp_mid <= mid)
+            temp_mid = mid + 1;
+        Merge(arr, mid, temp_mid, hight);
+    }
+    while (i <= mid && j <= hight)
+    {
+        if (arr[j] < arr[i])
+        {
+            for (int ind = j; ind > i; --ind)
+            {
+                int copy = arr[ind];
+                arr[ind] = arr[ind - 1];
+                arr[ind - 1] = copy;
+            }
+            ++j;
+        }
+        else
+        {
+            ++i;
+        }
+    }
+}
+
+void MergeSort(int *arr, int size)
+{
+    if (size <= 1)
+        return;
+    int mid = (size / 2);
+    Merge(arr, 0, mid, size - 1);
+}
+
 int main()
 {
     int sarr[] = {10, 9, 8, 7, 6, 5, 4, 3, 2, 1};
-    ShakerSort(sarr, 10);
+    MergeSort(sarr, 10);
     for (size_t i = 0; i < 10; ++i)
     {
         cout << sarr[i] << endl;
     }
+    int res = InterpolationSearch(sarr, 10, 1);
+    cout << res;
     return 0;
 }
